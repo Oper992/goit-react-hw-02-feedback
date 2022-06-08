@@ -14,16 +14,9 @@ export class App extends Component {
   addState = evt => {
     const buttonName = evt.target.name;
 
-    this.setState(prevState => {
-      if (buttonName === 'good') {
-        return { good: prevState.good + 1 };
-      }
-      if (buttonName === 'neutral') {
-        return { neutral: prevState.neutral + 1 };
-      } else {
-        return { bad: prevState.bad + 1 };
-      }
-    });
+    this.setState(prevState => ({
+      [buttonName]: prevState[buttonName] + 1,
+    }));
   };
 
   countTotalFeedback() {
@@ -45,7 +38,7 @@ export class App extends Component {
       <div>
         <Section title="Please leave feedback">
           <FeedbackOptions
-            options={this.state}
+            options={Object.keys(this.state)}
             onLeaveFeedback={this.addState}
           />
         </Section>
